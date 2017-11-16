@@ -1,0 +1,36 @@
+version: '3'
+services:
+  db:
+    image: postgres:9.6.1
+    container_name: rp-line-chatbot_db
+    environment:
+      - POSTGRES_DB=rp-line-chatbot_development
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    container_name: 'rp-line-chatbot_web'
+    command: bash -c "bundle check || bundle install && rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    volumes:
+      - '.:/rp-line-chatbot'
+      - "ruby-bundle:/bundle"
+
+  test:
+    build: .
+    image: rp-line-chatbot_test
+    entrypoint: bin/test.sh
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/rp-line-chatbot
+      - "ruby-bundle:/bundle"
+    environment:
+      - RAILS_ENV=test
+
+volumes:
+  ruby-bundle:
