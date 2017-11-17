@@ -57,10 +57,14 @@ class MessageController < ApplicationController
   private
 
   def built_message
-    {
+    [{
       type: 'text',
       text: lookup_conversation
-    }
+    },
+     {
+       type: 'text',
+       text: 'Send more texts!!'
+     }]
   end
 
   def lookup_conversation
@@ -70,7 +74,7 @@ class MessageController < ApplicationController
       end
     end
 
-    '(scream)'
+    'T_T'
   end
 
   def client
