@@ -45,7 +45,7 @@ class MessageController < ApplicationController
             when Line::Bot::Event::MessageType::Text
               @phrase = event.message['text']
 
-              message = lookup_conversation
+              message = built_message
               client.reply_message(event['replyToken'], message)
           end
       end
