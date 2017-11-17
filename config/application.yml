@@ -5,6 +5,9 @@ default: &default
   MAILER_DEFAULT_HOST: "localhost"
   MAILER_DEFAULT_PORT: "3000"
   MAILER_SENDER: "Test <noreply@nimbl3.co>"
+  LINE_CHANNEL_ID: '1546867226'
+  LINE_CHANNEL_SECRET: 'c2354433ef6deb107be15cca69eef101'
+  LINE_CHANNEL_TOKEN: 'dLQOTC/n6AqAnlW2rpBxd7GlnCJRLC824OJrTuuFhR7P1IsFTvNcjfwxyKUvpXInp6s3eyLB6xhbKyK40nlt9wyfdtL7hBsLLqoMGDyP0C1q8xZBfpfEEoNiBRqQe17LSBWGp/6MsjqMeUFa+PVE9gdB04t89/1O/w1cDnyilFU='
 
 development:
   <<: *default
