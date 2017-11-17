@@ -56,8 +56,6 @@ class MessageController < ApplicationController
 
   private
 
-  attr_reader phrase
-
   def built_message
     {
       type: 'text',
@@ -67,7 +65,7 @@ class MessageController < ApplicationController
 
   def lookup_conversation
     CONVERSATIONS.keys.each do |key|
-      if phrase.match(/\b#{key.to_s}\b/i).present?
+      if @phrase.match(/\b#{key.to_s}\b/i).present?
         return CONVERSATIONS[key][:reply].sample
       end
     end
