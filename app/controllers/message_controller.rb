@@ -86,6 +86,7 @@ class MessageController < ApplicationController
     }]
 
     # messages << built_marketing_message(RedPlanet::AllHotelService.new.call!)
+    messages
   end
 
   def built_carousel_message(items)
@@ -102,7 +103,7 @@ class MessageController < ApplicationController
               text: ['I\'d like to go to ', item['name']].join
             }
           }
-        end.shuffle
+        end
       }
     }
   end
