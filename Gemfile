@@ -11,6 +11,7 @@ gem 'fabrication' # Fabrication generates objects in Ruby. Fabricators are schem
 gem 'sidekiq', '5.0.0.beta2' # background processing for Ruby
 gem 'whenever', require: false # Cron jobs in Ruby
 gem 'line-bot-api' # Line::Bot::API - SDK of the LINE Messaging API for Ruby
+gem 'wit' # Ruby SDK for Wit.ai
 
 # Assets
 gem 'sass-rails' # SASS
