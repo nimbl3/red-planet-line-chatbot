@@ -84,6 +84,8 @@ class MessageController < ApplicationController
       type: 'text',
       text: CONVERSATIONS[:go][:reply].sample
     }]
+
+    messages
   end
 
   def built_carousel_message(items)
@@ -98,7 +100,7 @@ class MessageController < ApplicationController
             action: {
               type: 'message',
               label: item['display_name'],
-              text: item['display_name']
+              text: "I want to go to #{item['name']}"
             }
           }
         end
