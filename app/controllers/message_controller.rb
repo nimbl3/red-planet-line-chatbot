@@ -84,12 +84,13 @@ class MessageController < ApplicationController
       type: 'text',
       text: CONVERSATIONS[:go][:reply].sample
     }]
+
+    # messages << built_marketing_message(RedPlanet::AllHotelService.new.call!)
   end
 
   def built_carousel_message(items)
     {
       type: 'template',
-      altText: 'this is a image carousel template',
       template: {
         type: 'image_carousel',
         columns: items.each.map do |item|
@@ -98,13 +99,19 @@ class MessageController < ApplicationController
             action: {
               type: 'message',
               label: item['display_name'],
-              text: item['display_name']
+              text: ['I\'d like to go to ', item['name']].join
             }
           }
-        end
+        end.shuffle
       }
     }
   end
+
+  # def built_marketing_message(items)
+  #   items.map {|item| item['name'] }.each do |place|
+  #
+  #   end
+  # end
 
   def client
     @client ||= Line::Bot::Client.new do |config|
