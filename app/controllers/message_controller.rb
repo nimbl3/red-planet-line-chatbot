@@ -100,7 +100,7 @@ class MessageController < ApplicationController
             action: {
               type: 'message',
               label: item['display_name'],
-              text: ['I\'d like to go to ', item['name']].join
+              text: "I'd like to go to #{item['name']}!!"
             }
           }
         end
