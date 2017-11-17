@@ -40,14 +40,14 @@ class MessageController < ApplicationController
     events = client.parse_events_from(body)
     events.each do |event|
       case event
-        when Line::Bot::Event::Message
-          case event.type
-            when Line::Bot::Event::MessageType::Text
-              @phrase = event.message['text']
+      when Line::Bot::Event::Message
+        case event.type
+        when Line::Bot::Event::MessageType::Text
+          @phrase = event.message['text']
 
-              message = built_message
-              client.reply_message(event['replyToken'], message)
-          end
+          message = built_messages
+          client.reply_message(event['replyToken'], message)
+        end
       end
     end
 
@@ -56,25 +56,54 @@ class MessageController < ApplicationController
 
   private
 
-  def built_message
-    [{
-      type: 'text',
-      text: lookup_conversation
-    },
-     {
-       type: 'text',
-       text: 'Send more texts!!'
-     }]
-  end
-
-  def lookup_conversation
+  def built_messages
     CONVERSATIONS.keys.each do |key|
       if @phrase.match(/\b#{key.to_s}\b/i).present?
-        return CONVERSATIONS[key][:reply].sample
+        return send("built_#{key}_messages")
       end
     end
 
-    'T_T'
+    {
+      type: 'text',
+      text: 'T_T'
+    }
+  end
+
+  def built_travel_messages
+    messages = [{
+      type: 'text',
+      text: CONVERSATIONS[:travel][:reply].sample
+    }]
+
+    messages << built_carousel_message(RedPlanet::AllHotelService.new.call!)
+    messages
+  end
+
+  def built_go_messages
+    messages = [{
+      type: 'text',
+      text: CONVERSATIONS[:go][:reply].sample
+    }]
+  end
+
+  def built_carousel_message(items)
+    {
+      type: 'template',
+      altText: 'this is a image carousel template',
+      template: {
+        type: 'image_carousel',
+        columns: items.each.map do |item|
+          {
+            imageUrl: item['image_path'],
+            action: {
+              type: 'message',
+              label: item['display_name'],
+              text: item['display_name']
+            }
+          }
+        end
+      }
+    }
   end
 
   def client

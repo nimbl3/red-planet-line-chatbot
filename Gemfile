@@ -10,6 +10,7 @@ gem 'ffaker' # A library for generating fake data such as names, addresses, and 
 gem 'fabrication' # Fabrication generates objects in Ruby. Fabricators are schematics for your objects, and can be created as needed anywhere in your app or specs.
 gem 'sidekiq', '5.0.0.beta2' # background processing for Ruby
 gem 'whenever', require: false # Cron jobs in Ruby
+gem 'httparty' # Makes consuming restful web services dead easy
 gem 'line-bot-api' # Line::Bot::API - SDK of the LINE Messaging API for Ruby
 gem 'wit' # Ruby SDK for Wit.ai
 
