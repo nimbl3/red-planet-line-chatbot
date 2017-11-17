@@ -1,3 +1,5 @@
+require 'line/bot'
+
 class MessageController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :client
@@ -25,7 +27,7 @@ class MessageController < ApplicationController
       end
     end
 
-    'OK'
+    render status: 200, json: { message: 'OK' }
   end
 
   private
