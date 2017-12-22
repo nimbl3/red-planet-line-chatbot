@@ -40,14 +40,14 @@ module Line
     end
 
     def built_hi_messages
-      messages = [built_text(response_module: 'hi', response_type:'reply')]
+      messages = [built_text(response_module: 'hi', response_type: 'reply')]
 
       messages << built_sticker
       messages
     end
 
     def built_hello_messages
-      messages = [built_text(response_module: 'hello', response_type:'reply')]
+      messages = [built_text(response_module: 'hello', response_type: 'reply')]
 
       messages << built_sticker
       messages
@@ -58,6 +58,38 @@ module Line
 
       messages << built_text(response_module: 'travel', response_type: 'command')
       messages << built_carousel(RedPlanet::AllHotelService.new.call!)
+      messages
+    end
+
+    def build_go_messages
+      messages = []
+
+      response_data = RedPlanet::AllHotelService.new.call!
+      locations = response_data.each.map do |item|
+        {
+          name: item['name'].downcase,
+          hotels: item['children']
+        }
+      end
+
+      is_found = false
+      locations.each do |location|
+        next if @phrase.match(/\b#{location[:name]}\b/i).blank?
+        is_found = true
+
+        messages << built_text(response_module: 'go', response_type: 'reply_ok')
+        messages << built_text(response_module: 'go', response_type: 'command')
+
+        messages << built_another_carousel
+      end
+
+      unless is_found
+        messages << built_text(response_module: 'go', response_type: 'reply_not_found')
+
+        messages << built_text(response_module: 'travel', response_type: 'command')
+        messages << built_carousel(response_data)
+      end
+
       messages
     end
   end
