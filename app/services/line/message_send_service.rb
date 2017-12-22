@@ -38,12 +38,12 @@ module Line
 
       built_sticker
     end
-  end
 
-  def built_travel_messages
-    messages = [built_text('travel')]
+    def built_travel_messages
+      messages = [built_text('travel')]
 
-    messages << built_carousel_message(RedPlanet::AllHotelService.new.call!)
-    messages
+      messages << built_carousel_message(RedPlanet::AllHotelService.new.call!)
+      messages
+    end
   end
 end

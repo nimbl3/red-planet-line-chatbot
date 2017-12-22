@@ -26,10 +26,10 @@ module Line
        }.freeze
     end
 
-    def built_text
+    def built_text(key)
       {
         type: 'text',
-        text: conversation[key][:reply].sample
+        text: conversation[key.to_sym][:reply].sample
       }
     end
 
@@ -38,6 +38,26 @@ module Line
         type: 'sticker',
         packageId: '3',
         stickerId: Random.new.rand(210..235).to_s
+      }
+    end
+
+    def built_carousel_message(items)
+      {
+        type: 'template',
+        altText: 'This is a image carousel template',
+        template: {
+          type: 'image_carousel',
+          columns: items.each.map do |item|
+            {
+              imageUrl: item['image_path'],
+              action: {
+                type: 'message',
+                label: item['display_name'],
+                text: "I want to go to #{item['name']}"
+              }
+            }
+          end
+        }
       }
     end
   end
