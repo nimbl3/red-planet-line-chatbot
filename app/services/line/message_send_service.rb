@@ -61,7 +61,7 @@ module Line
       messages
     end
 
-    def build_go_messages
+    def built_go_messages
       messages = []
 
       response_data = RedPlanet::AllHotelService.new.call!
