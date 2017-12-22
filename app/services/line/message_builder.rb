@@ -4,6 +4,20 @@ module Line
 
     def initialize
        @conversation = {
+         hi: {
+           reply: [
+             'Hello!, what can I do for you?',
+             'Hi! :)',
+             'Hey, how\'s it going?'
+           ]
+         },
+         hello: {
+           reply: [
+             'Hello!, what can I do for you?',
+             'Hi! :)',
+             'Hey, how\'s it going?'
+           ]
+         },
          travel: {
            reply: [
              'So exciting!!! Where would you like to go?',
@@ -41,7 +55,7 @@ module Line
       }
     end
 
-    def built_carousel_message(items)
+    def built_carousel(items)
       {
         type: 'template',
         altText: 'This is a image carousel template',
