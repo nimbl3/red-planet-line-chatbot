@@ -80,7 +80,7 @@ module Line
         messages << built_text(response_module: 'go', response_type: 'reply_ok')
         messages << built_text(response_module: 'go', response_type: 'command')
 
-        messages << built_another_carousel
+        messages << built_another_carousel(location[:hotels])
       end
 
       unless is_found

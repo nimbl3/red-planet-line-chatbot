@@ -94,62 +94,33 @@ module Line
       }
     end
 
-    def built_another_carousel
+    def built_another_carousel(items)
       {
-        "type": 'template',
-        "altText": 'this is a carousel template',
-        "template": {
-          "type": 'carousel',
-          "columns": [
+        type: 'template',
+        altText: 'this is a carousel template',
+        template: {
+          type: 'carousel',
+          imageAspectRatio: 'rectangle',
+          imageSize: 'cover',
+          columns: items.each.map do |item|
             {
-              "thumbnailImageUrl": 'https://placeit.net/uploads/stage/stage_image/659/default_IMG_5790_base.jpg',
-              "imageBackgroundColor": '#FFFFFF',
-              "title": 'this is menu',
-              "text": 'description',
-              "actions": [
+              thumbnailImageUrl: item['image_path'],
+              imageBackgroundColor: '#000000',
+              title: item['display_name'],
+              action: [
                 {
-                  "type": 'postback',
-                  "label": 'Buy',
-                  "data": 'action=buy&itemid=111'
+                  type: 'uri',
+                  label: 'Buy',
+                  data: 'https://preview.redplanethotels.com/search'
                 },
                 {
-                  "type": 'postback',
-                  "label": 'Add to cart',
-                  "data": 'action=add&itemid=111'
-                },
-                {
-                  "type": 'uri',
-                  "label": 'View detail',
-                  "uri": 'http://example.com/page/111'
-                }
-              ]
-            },
-            {
-              "thumbnailImageUrl": 'https://placeit.net/uploads/stage/stage_image/659/default_IMG_5790_base.jpg',
-              "imageBackgroundColor": '#000000',
-              "title": 'this is menu',
-              "text": 'description',
-              "actions": [
-                {
-                  "type": 'postback',
-                  "label": 'Buy',
-                  "data": 'action=buy&itemid=222'
-                },
-                {
-                  "type": 'postback',
-                  "label": 'Add to cart',
-                  "data": 'action=add&itemid=222'
-                },
-                {
-                  "type": 'uri',
-                  "label": 'View detail',
-                  "uri": 'http://example.com/page/222'
+                  type: 'uri',
+                  label: 'View detail',
+                  uri: 'https://preview.redplanethotels.com/search'
                 }
               ]
             }
-          ],
-          "imageAspectRatio": 'rectangle',
-          "imageSize": 'cover'
+          end
         }
       }
     end
