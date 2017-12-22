@@ -32,14 +32,18 @@ module Line
     def built_conversation
       @conversation.keys.each do |key|
         if @phrase.match(/\b#{key.to_s}\b/i).present?
-          return {
-            type: 'text',
-            text: @conversation[key][:reply].sample
-          }
+          return send("built_#{key}_messages")
         end
       end
 
       built_sticker
     end
+  end
+
+  def built_travel_messages
+    messages = [built_text('travel')]
+
+    messages << built_carousel_message(RedPlanet::AllHotelService.new.call!)
+    messages
   end
 end
