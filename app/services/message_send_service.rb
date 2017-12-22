@@ -1,4 +1,5 @@
-class MessageSendService
+class MessageSendService < MessageBuilder
+
   CONVERSATIONS = {
     travel: {
       reply: [
@@ -49,13 +50,13 @@ class MessageSendService
 
   attr_reader :events, :client
 
-  def built_sticker
-    {
-      type: 'sticker',
-      packageId: '3',
-      stickerId: Random.new.rand(210..235).to_s
-    }
-  end
+  # def built_sticker
+  #   {
+  #     type: 'sticker',
+  #     packageId: '3',
+  #     stickerId: Random.new.rand(210..235).to_s
+  #   }
+  # end
 
   def built_message
     CONVERSATIONS.keys.each do |key|
