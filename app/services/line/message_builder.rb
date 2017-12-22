@@ -25,6 +25,9 @@ module Line
              'What\'s your favorite place go?',
              'Just tell me :)'
            ],
+           command: [
+             '---- select below ----'
+           ],
            end_point: [
              '/hotel_location'
            ]
@@ -40,10 +43,10 @@ module Line
        }.freeze
     end
 
-    def built_text(key)
+    def built_text(response_module:, response_type:)
       {
         type: 'text',
-        text: conversation[key.to_sym][:reply].sample
+        text: conversation[response_module.to_sym][response_type.to_sym].sample
       }
     end
 

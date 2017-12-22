@@ -40,22 +40,23 @@ module Line
     end
 
     def built_hi_messages
-      messages = [built_text('hi')]
+      messages = [built_text(response_module: 'hi', response_type:'reply')]
 
       messages << built_sticker
       messages
     end
 
     def built_hello_messages
-      messages = [built_text('hello')]
+      messages = [built_text(response_module: 'hello', response_type:'reply')]
 
       messages << built_sticker
       messages
     end
 
     def built_travel_messages
-      messages = [built_text('travel')]
+      messages = [built_text(response_module: 'travel', response_type: 'reply')]
 
+      messages << built_text(response_module: 'travel', response_type: 'command')
       messages << built_carousel(RedPlanet::AllHotelService.new.call!)
       messages
     end
