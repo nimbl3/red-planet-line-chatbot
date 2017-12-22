@@ -11,8 +11,8 @@ class MessageController < ApplicationController
       render status: 400, json: { message: 'Bad Request' }
     end
 
-    events    = MessageEventParseService.new(body: body, client: client).call!
-    _service  = MessageSendService.new(events: events, client: client).call!
+    events    = Line::MessageEventParseService.new(body: body, client: client).call!
+    _service  = Line::MessageSendService.new(events: events, client: client).call!
 
     render status: 200, json: { message: 'OK' }
   end
