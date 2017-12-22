@@ -95,32 +95,35 @@ module Line
     end
 
     def built_another_carousel(items)
+      p items
+
       {
         type: 'template',
         altText: 'this is a carousel template',
         template: {
           type: 'carousel',
-          imageAspectRatio: 'rectangle',
-          imageSize: 'cover',
-          columns: items.each.map do |item|
+          columns: [
             {
-              thumbnailImageUrl: item['image_path'],
-              imageBackgroundColor: '#000000',
-              title: item['display_name'],
-              action: [
+              "thumbnailImageUrl": 'https://placeit.net/uploads/stage/stage_image/659/default_IMG_5790_base.jpg',
+              "imageBackgroundColor": '#000000',
+              "title": 'this is menu',
+              "text": 'description',
+              "actions": [
                 {
-                  type: 'uri',
-                  label: 'Buy',
-                  data: 'https://preview.redplanethotels.com/search'
+                  "type": 'uri',
+                  "label": 'Buy',
+                  "data": 'https://preview.redplanethotels.com'
                 },
                 {
-                  type: 'uri',
-                  label: 'View detail',
-                  uri: 'https://preview.redplanethotels.com/search'
+                  "type": 'uri',
+                  "label": 'View detail',
+                  "uri": 'https://preview.redplanethotels.com'
                 }
               ]
             }
-          end
+          ],
+          imageAspectRatio: 'rectangle',
+          imageSize: 'cover'
         }
       }
     end
