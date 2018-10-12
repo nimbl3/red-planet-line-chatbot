@@ -21,6 +21,15 @@ module Line
           else
             client.reply_message(event['replyToken'], built_sticker)
           end
+        when Line::Bot::Event::Beacon
+          case event['beacon']['type']
+          when 'enter'
+            client.reply_message(event['replyToken'], built_welcome_messages)
+          when 'leave'
+            client.reply_message(event['replyToken'], built_bye_messages)
+          else
+            client.reply_message(event['replyToken'], built_sticker)
+          end
         end
       end
     end
@@ -37,6 +46,20 @@ module Line
       end
 
       built_sticker
+    end
+
+    def built_welcome_messages
+      messages = [built_text(response_module: 'welcome', response_type:'reply')]
+
+      messages << built_sticker
+      messages
+    end
+
+    def built_bye_messages
+      messages = [built_text(response_module: 'bye', response_type:'reply')]
+
+      messages << built_sticker
+      messages
     end
 
     def built_hi_messages
@@ -62,9 +85,8 @@ module Line
       messages
     end
 
-    def build_go_messages
+    def built_go_messages
       messages = [built_text(response_module: 'go', response_type: 'reply')]
-
 
       messages
     end

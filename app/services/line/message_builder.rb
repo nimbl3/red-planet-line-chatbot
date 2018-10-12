@@ -4,6 +4,20 @@ module Line
 
     def initialize
        @conversation = {
+         welcome: {
+           reply: [
+             'We\'re so happy you\'re here.',
+             'Welcome to RedPlanet and nice to have you here.',
+             'You love it. We know.'
+           ]
+         },
+         bye: {
+           reply: [
+             'We all want to say goodbye and good luck.',
+             'Goodbye! :)',
+             'Hope you had such a great time here.'
+           ]
+         },
          hi: {
            reply: [
              'Hello!, what can I do for you?',
