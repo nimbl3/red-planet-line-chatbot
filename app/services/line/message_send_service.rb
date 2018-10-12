@@ -24,7 +24,7 @@ module Line
         when Line::Bot::Event::Beacon
           case event['beacon']['type']
           when 'enter'
-            client.reply_message(event['replyToken'], built_welcome_messages)
+            client.reply_message(event['replyToken'], built_welcome_messages(true))
           when 'leave'
             client.reply_message(event['replyToken'], built_bye_messages)
           else
@@ -48,17 +48,19 @@ module Line
       built_sticker
     end
 
-    def built_welcome_messages
+    def built_welcome_messages(isBeacon = false)
       messages = [built_text(response_module: 'welcome', response_type:'reply')]
 
-      messages << built_sticker
+      messages << built_sticker(247)
+
+      messages += built_promotion_messages if isBeacon
       messages
     end
 
     def built_bye_messages
       messages = [built_text(response_module: 'bye', response_type:'reply')]
 
-      messages << built_sticker
+      messages << built_sticker(252)
       messages
     end
 
@@ -73,7 +75,7 @@ module Line
     def built_greeting_messages
       messages = [built_text(response_module: 'hi', response_type:'reply')]
 
-      messages << built_sticker
+      messages << built_sticker([240, 241, 242, 243, 256].sample)
       messages
     end
 
@@ -81,13 +83,25 @@ module Line
       messages = [built_text(response_module: 'travel', response_type: 'reply')]
 
       messages << built_text(response_module: 'travel', response_type: 'command')
-      messages << built_carousel(RedPlanet::AllHotelService.new.call!)
+      messages << built_location_carousel(RedPlanet::AllHotelService.new.call!)
       messages
     end
 
     def built_go_messages
       messages = [built_text(response_module: 'go', response_type: 'reply')]
 
+      messages << built_sticker([220, 221, 222, 223, 224, 228, 229, 232, 233, 255].sample)
+      messages
+    end
+
+    def built_promotions_messages
+      built_promotion_messages
+    end
+
+    def built_promotion_messages
+      messages = [built_text(response_module: 'promotion', response_type: 'reply')]
+
+      messages << built_promotion_carousel(RedPlanet::AllPromotionService.new.call!)
       messages
     end
   end
