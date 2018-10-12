@@ -25,6 +25,7 @@ module Line
              'Hey, how\'s it going?'
            ]
          },
+         hello: {},
          travel: {
            reply: [
              'So exciting!!! Where would you like to go?',
@@ -46,7 +47,18 @@ module Line
              'This is the best place *EVER* :)'
            ],
            end_point: %w[/hotel_location /hotel/location]
-         }
+         },
+         promotion: {
+           reply: [
+             'These are our promotions just for only you :)',
+             'Our latest promotions here.',
+             'Promotiooooooooooooooooooon ~'
+           ],
+           end_point: [
+             '/promotion'
+           ]
+         },
+         promotions: {}
        }.freeze
     end
 
@@ -57,13 +69,47 @@ module Line
       }
     end
 
-    def built_sticker
+    def built_sticker(stickerId = nil)
+      stickerId = Random.new.rand(210..235) if stickerId.blank?
+
       {
         type: 'sticker',
         packageId: '3',
-        stickerId: Random.new.rand(210..235).to_s
+        stickerId: stickerId.to_s
       }
     end
+
+    def built_location_carousel(items)
+      carousel_items = items.each.map do |item|
+        {
+          imageUrl: item['image_path'],
+          action: {
+            type: 'message',
+            label: item['display_name'],
+            text: "I want to go to #{item['name']}"
+          }
+        }
+      end
+
+      built_carousel(carousel_items)
+    end
+
+    def built_promotion_carousel(items)
+      carousel_items = items.each.map do |item|
+        {
+          imageUrl: item['image_url'],
+          action: {
+            type: 'message',
+            label: item['button_title'],
+            text: item['code']
+          }
+        }
+      end
+
+      built_carousel(carousel_items)
+    end
+
+    private
 
     def built_carousel(items)
       {
@@ -71,16 +117,7 @@ module Line
         altText: 'This is a image carousel template',
         template: {
           type: 'image_carousel',
-          columns: items.each.map do |item|
-            {
-              imageUrl: item['image_path'],
-              action: {
-                type: 'message',
-                label: item['display_name'],
-                text: "I want to go to #{item['name']}"
-              }
-            }
-          end
+          columns: items
         }
       }
     end
