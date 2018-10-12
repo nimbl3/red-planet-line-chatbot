@@ -11,13 +11,6 @@ module Line
              'Hey, how\'s it going?'
            ]
          },
-         hello: {
-           reply: [
-             'Hello!, what can I do for you?',
-             'Hi! :)',
-             'Hey, how\'s it going?'
-           ]
-         },
          travel: {
            reply: [
              'So exciting!!! Where would you like to go?',
@@ -36,7 +29,7 @@ module Line
            reply: [
              'Look!! That\'s such a nice place!!!',
              'Come on!! Let\'s make it happen today :)',
-             'This is the best hotel *EVER* :)'
+             'This is the best place *EVER* :)'
            ],
            end_point: %w[/hotel_location /hotel/location]
          }
