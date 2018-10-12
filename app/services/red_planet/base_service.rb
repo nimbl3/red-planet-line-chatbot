@@ -8,7 +8,6 @@ module RedPlanet
 
     def call!
       @http_response = send_request
-      # raise(Pathfinder::Errors::RedPlanetError, @http_response.body) unless successful_response?
 
       @parsed_response = parse_response
     end

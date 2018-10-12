@@ -18,6 +18,9 @@ gem 'wit' # Ruby SDK for Wit.ai
 gem 'sass-rails' # SASS
 gem 'uglifier'
 
+# Views
+gem 'slim' # Slim is a template language whose goal is reduce the syntax to the essential parts without becoming cryptic
+
 group :development do
   gem 'better_errors' # Better error page for Rails and other Rack apps
   gem 'binding_of_caller' # Retrieve the binding of a method's caller in MRI 1.9.2+

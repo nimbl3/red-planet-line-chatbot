@@ -3,7 +3,7 @@ module Line
     attr_accessor :conversation
 
     def initialize
-       @conversation = {
+      @conversation = {
          welcome: {
            reply: [
              'We\'re so happy you\'re here.',
@@ -60,7 +60,7 @@ module Line
          },
          promotions: {}
        }.freeze
-    end
+     end
 
     def built_text(response_module:, response_type:)
       {
@@ -99,9 +99,9 @@ module Line
         {
           imageUrl: item['image_url'],
           action: {
-            type: 'message',
+            type: 'uri',
             label: item['button_title'],
-            text: item['code']
+            uri: "line://app/#{get_liffid(item['code'])}"
           }
         }
       end
@@ -110,6 +110,16 @@ module Line
     end
 
     private
+
+    def get_liffid(code)
+      liff = {
+        mktpage: '1546867226-5z8rNvdx',
+        bankmega: '1546867226-8LKDyL0b',
+        krungsri: '1546867226-4k1PJWYl'
+      }.freeze
+
+      liff[code.to_sym]
+    end
 
     def built_carousel(items)
       {

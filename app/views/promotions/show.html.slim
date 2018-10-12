@@ -1,0 +1,9 @@
+.card
+  img.card-img-top src="#{@promotion['flash_sale']['image_url']}"
+  .card-body
+    h5.card-header
+      | #{@promotion['flash_sale']['code']}
+    p.card-text
+      | #{@promotion['flash_sale']['description']}
+    .card-body
+      | #{@promotion['flash_sale']['terms'].html_safe}
